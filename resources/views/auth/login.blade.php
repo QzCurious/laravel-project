@@ -65,6 +65,9 @@
                             </div>
                         </div>
                     </form>
+                    <div>
+                        <a href="{{ route('oauth.login', 'google') }}">Google login</a>
+                    </div>
                 </div>
             </div>
         </div>

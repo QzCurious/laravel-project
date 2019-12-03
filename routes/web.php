@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\OauthLoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,5 +18,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+// OAuth login
+Route::prefix('oauth/{provider}')->group(function () {
+    Route::get('login', [OauthLoginController::class, 'redirectToProvider'])->name('oauth.login');
+    Route::get('callback', [OauthLoginController::class, 'handleProviderCallback']);
+});
 
 Route::get('/home', 'HomeController@index')->name('home');

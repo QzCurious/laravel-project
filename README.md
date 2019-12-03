@@ -42,6 +42,22 @@ Reference:
 
 -   [ClearDB MySQL](https://devcenter.heroku.com/articles/cleardb)
 
+## Google Sing-In
+
+_With Socialite, and a bit concept of OAuth, it's no need to study the steps of [Google Sign-In for Websites](https://developers.google.com/identity/sign-in/web/sign-in) or [Using OAuth 2.0 for Web Server Applications](https://developers.google.com/identity/protocols/OAuth2WebServer)_
+
+1. [Google Sign-In for Websites](https://developers.google.com/identity/sign-in/web/sign-in)
+    - Client ID
+    - Client secret
+    - Authorized JavaScript origins (Host URL)
+    - Authorized redirect URIs (Callback URL)
+2. `composer require laravel/socialite`
+3. Setup config vars for google OAuth api by `heroku config:set GOOGLE_CLIENT_ID=<ID> GOOGLE_CLIENT_SECRET=<SECRET>`
+4. [Configure](https://laravel.com/docs/6.x/socialite#configuration) credentials for google OAuth api
+5. `php artisan make:controller Oauth/SocialiteController`
+6. Setup routes for google OAuth sign in and callback. For OAuth, there are lots of providers, so I decide to put a route parameter for determine which provider to use.
+    - Forgive the chance that entering unimplemented provider cause 5xx for code clearance.
+
 ## Troubleshooting
 
 ### `php artisan make:auth`: Command "make:auth" is not defined
@@ -61,6 +77,8 @@ Reference: https://laravel.com/docs/master/migrations#creating-indexes
 
 ## Tips
 
+-   Follow [laravel best practices](https://github.com/alexeymezenin/laravel-best-practices)
+
 ### Heroku
 
 -   To omit `--app` option for heroku cli commands, add a git remote points to **Heroku Git URL** of the app. [Reference](https://stackoverflow.com/questions/55470675/how-to-avoid-the-app-option-with-heroku-cli)
@@ -70,3 +88,4 @@ Reference: https://laravel.com/docs/master/migrations#creating-indexes
 
 -   Not sure if we should version control compiled css and js files,
     that is, files in _public/css_ and _public/js_
+-   Why register middlewares to `$routeMiddleware` and then assign to a route? Why not just assign middlewares with it's full name?
