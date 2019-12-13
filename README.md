@@ -57,6 +57,35 @@ _With Socialite, and a bit concept of OAuth, it's no need to study the steps of 
 5. `php artisan make:controller Oauth/SocialiteController`
 6. Setup routes for google OAuth sign in and callback. For OAuth, there are lots of providers, so I decide to put a route parameter for determine which provider to use.
     - Forgive the chance that entering unimplemented provider cause 5xx for code clearance.
+7. `php artisan make:migration create_oauth_accounts_table`
+8. `php artisan make:model Auth/OauthAccount`
+9. Record **sub** and **provider** when login with OAuth
+
+## Integrate Google Sign-in into authentication flow
+
+Move Eloquent models to a dedicate directory _app/Eloquent_.
+**\App\User renamed to \App\Eloquent\Auth\User**. It's important to also modify user provider configuration in _config/auth.php_
+
+Because a user can be create by OAuth login, email(username) and password can be null.
+A user can associate with multiple OAuth account (with different OAuth provider).
+It's a one-to-many relationship.
+
+1. Write a new method for `User` model to retrieve its `oauthAccount`s
+2. Write a new method for `oauthAccount`s account to retrieve its `User`
+
+OAuth login scenarios:
+
+|                    | New user             | Logged in by credentials   |
+| ------------------ | -------------------- | -------------------------- |
+| New OAuth account  | Create OAuth account | Link OAuth to current user |
+| Logged in by OAuth | Login user           | N/A                        |
+
+## Testing
+
+```sh
+cp .env.testing.example .env.testing
+php artisan --env=testing key:generate
+```
 
 ## Troubleshooting
 

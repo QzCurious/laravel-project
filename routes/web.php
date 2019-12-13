@@ -22,7 +22,7 @@ Auth::routes();
 // OAuth login
 Route::prefix('oauth/{provider}')->group(function () {
     Route::get('login', [OauthLoginController::class, 'redirectToProvider'])->name('oauth.login');
-    Route::get('callback', [OauthLoginController::class, 'handleProviderCallback']);
+    Route::get('callback', [OauthLoginController::class, 'handleProviderCallback'])->name('oauth.callback');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
