@@ -80,6 +80,18 @@ OAuth login scenarios:
 | New OAuth account  | Create OAuth account | Link OAuth to current user |
 | Logged in by OAuth | Login user           | N/A                        |
 
+## Item
+
+`php artisan make:model -cmr Eloquent/Item`
+`php artisan make:request StoreItemRequest`
+`php artisan make:request UpdateItemRequest`
+
+> Laravel will automatically redirect the user back to their previous location
+>
+> -- [Laravel](https://laravel.com/docs/master/validation#quick-displaying-the-validation-errors)
+
+-   `old()` to get previously input value
+
 ## Testing
 
 ```sh

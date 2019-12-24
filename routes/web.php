@@ -26,3 +26,5 @@ Route::prefix('oauth/{provider}')->group(function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('items', 'ItemController');
