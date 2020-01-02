@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 |
 */
 
+// User without roles
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
@@ -24,4 +25,14 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
+});
+
+// Default role
+$factory->afterMakingState(User::class, config('authflow.users.default_role'), function (User $user, Faker $faker) {
+    $user->assignRole(config('authflow.users.default_role'));
+});
+
+// Admin role
+$factory->afterMakingState(User::class, config('authflow.users.admin_role'), function (User $user, Faker $faker) {
+    $user->assignRole(config('authflow.users.admin_role'));
 });

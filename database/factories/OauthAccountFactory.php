@@ -6,13 +6,12 @@ use App\Eloquent\Auth\User;
 use Faker\Generator as Faker;
 
 $factory->define(OauthAccount::class, function (Faker $faker) {
-    $user = factory(User::class)->create();
+    $user = factory(User::class)->states(config('authflow.users.default_role'))->create();
     return [
         'user_id' => $user,
         'sub' => $faker->uuid,
         'provider' => function () {
             throw new Exception('Attribute "provider" should be overrided.');
         },
-
     ];
 });

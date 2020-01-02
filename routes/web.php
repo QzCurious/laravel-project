@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\OauthLoginController;
+use Spatie\Permission\Middlewares\PermissionMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,11 @@ Route::prefix('oauth/{provider}')->group(function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('items', 'ItemController');
+
+// Admin
+Route::middleware(['auth', PermissionMiddleware::class.':view admin panel'])
+    ->prefix(config('authflow.admin_url'))
+    ->name('admin.')
+    ->group(function () {
+        Route::view('/', 'admin.dashboard')->name('dashboard');
+    });

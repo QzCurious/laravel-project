@@ -21,6 +21,15 @@ class AuthFlowTest extends TestCase
     /**
      * @test
      */
+    public function a_new_user_has_default_role()
+    {
+        $user = factory(User::class)->create();
+        $this->assertTrue($user->hasRole(config('authflow.users.default_role')));
+    }
+
+    /**
+     * @test
+     */
     public function a_user_can_register_by_email_and_password()
     {
         // Register flow
