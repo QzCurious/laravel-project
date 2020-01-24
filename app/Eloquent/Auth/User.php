@@ -5,6 +5,7 @@ namespace App\Eloquent\Auth;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -50,5 +51,13 @@ class User extends Authenticatable
     public function oauthAccounts()
     {
         return $this->hasMany(OauthAccount::class);
+    }
+
+    /**
+     * Hash password before insert it into database
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
     }
 }

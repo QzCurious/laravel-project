@@ -54,7 +54,7 @@ class AuthFlowTest extends TestCase
     public function a_user_can_login_by_email_and_password()
     {
         $password = $this->faker->password(8, 20);
-        $user = factory(User::class)->create(['password' => Hash::make($password)]);
+        $user = factory(User::class)->create(['password' => $password]);
         $response = $this->post('/login', [
             'email' => $user->email,
             'password' => $password,
