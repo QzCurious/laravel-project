@@ -36,4 +36,5 @@ Route::middleware(['auth', PermissionMiddleware::class.':view admin panel'])
     ->name('admin.')
     ->group(function () {
         Route::view('/', 'admin.dashboard')->name('dashboard');
+        Route::resource('users', 'UserController');
     });

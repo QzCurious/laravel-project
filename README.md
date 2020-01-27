@@ -142,6 +142,21 @@ class User extends Authenticatable{
 }
 ```
 
+## Permissions
+
+Permission name convention for resource:
+
+-   `<resource>.index`
+-   `<resource>.create`
+-   `<resource>.show`
+-   `<resource>.edit`
+-   `<resource>.destory`
+
+`php artisan make:controller -rm 'App\Eloquent\Auth\User' UserController`
+`php artisan make:migration AddUserInfoFieldsToUsersTable`
+
+## View composer
+
 ## Testing
 
 ```sh

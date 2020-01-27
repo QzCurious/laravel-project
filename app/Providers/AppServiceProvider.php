@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Eloquent\Auth\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -15,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $this->grantAllPermissionToSuperAdmin();
+        $this->registeObservers();
     }
 
     private function grantAllPermissionToSuperAdmin()
@@ -35,5 +36,10 @@ class AppServiceProvider extends ServiceProvider
         Gate::before(function ($user, $ability) {
             return $user->hasRole('super_admin');
         });
+    }
+
+    private function registeObservers()
+    {
+        User::observe(\App\Observers\UserObserver::class);
     }
 }
